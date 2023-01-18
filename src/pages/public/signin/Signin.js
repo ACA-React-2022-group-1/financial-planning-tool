@@ -27,6 +27,19 @@ const Login = () => {
         return errorMessage;
       };
 
+    const passValidate = value => {
+        let errorMessage;
+        if (!value) {
+            errorMessage = 'Required field';
+        } 
+        // else if (
+        //     !/^(?=.*\d)(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/i.test(value)
+        // ) {
+        //     errorMessage = 'Invalid password';
+        // }
+        return errorMessage
+    }
+
 
 return ( <div className="loginPage">
             <div className='picture'></div>
@@ -37,26 +50,6 @@ return ( <div className="loginPage">
                     </div>
                     <Formik
                         initialValues={{ email: '', password: '' }}
-                        validate={values => {
-                            const errors = {};
-                            if (!values.email) {
-                                errors.email = 'Required';
-                            } else if (
-                                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                            ) {
-                                errors.email = 'Invalid email address';
-                            }
-                            
-                            if (!values.password) {
-                                errors.password = 'Required field';
-                            } else if (
-                                !/^(?=.*\d)(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/i.test(values.password)
-                            ) {
-                                errors.password = 'Invalid password';
-                            }
-
-                            return errors;
-                        }}
                         onSubmit={async (values, { setSubmitting }) => {
                             setSubmitting(false);
                             signInWithEmailAndPassword(auth, values.email, values.password)
@@ -98,10 +91,11 @@ return ( <div className="loginPage">
 
                                 <div className='formFieldContainer'>
                                     <label>Password</label>
-                                    <div className={`inputStyle ${ errors.password && touched.password && errors.password ? 'inputError' : '' }`} id="passwordDiv">
+                                    <div className={`inputStyle passwordDiv ${ errors.password && touched.password && errors.password ? 'inputError' : '' }`}>
                                         <Field
                                             type={showHide ? "text" : "password"}
                                             name="password"
+                                            validate={passValidate}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.password}

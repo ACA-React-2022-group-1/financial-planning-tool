@@ -74,7 +74,7 @@ h1 {
 #hide {
     display: none;
 }
-#passwordDiv {
+.passwordDiv {
     display: flex;
     justify-content: center;
     color: #55a9a6;

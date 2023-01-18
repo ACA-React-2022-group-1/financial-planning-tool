@@ -29,7 +29,7 @@ const Login = () => {
 
     const passValidate = value => {
         let errorMessage;
-        if (value) {
+        if (!value) {
             errorMessage = 'Required field';
         } else if (
             !/^(?=.*\d)(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/i.test(value)
@@ -125,7 +125,7 @@ return ( <div className="loginPage">
 
                                 <div className='formFieldContainer'>
                                     <label>Password</label>
-                                    <div className={`inputStyle ${ errors.password && touched.password && errors.password ? 'inputError' : '' }`} id="passwordDiv">
+                                    <div className={`inputStyle passwordDiv ${ errors.password && touched.password && errors.password ? 'inputError' : '' }`}>
                                         <Field
                                             type={showHidePass ? "text" : "password"}
                                             validate={passValidate}
@@ -144,20 +144,20 @@ return ( <div className="loginPage">
 
                                 <div className='formFieldContainer'>
                                     <label>Confirm Password</label>
-                                    <div className={`inputStyle ${ errors.password && touched.password && errors.password ? 'inputError' : '' }`} id="passwordDiv">
+                                    <div className={`inputStyle passwordDiv ${ errors.confirmPassword && touched.confirmPassword && errors.confirmPassword ? 'inputError' : '' }`}>
                                         <Field
                                             type={showHideConfirmPass ? "text" : "password"}
                                             name="confirmPassword"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            value={values.password}
+                                            value={values.confirmPassword}
                                             className="passworsInput"
                                         />
                                         <div className="showHidebtn" onClick={(e) => { setShowHideConfirmPass(!showHideConfirmPass) }}>
                                             {showHideConfirmPass ? <EyeOutlined /> : <EyeInvisibleOutlined />}
                                         </div>
                                     </div>
-                                    <span className='errorMessasge'>{errors.password && touched.password && errors.password}</span>    
+                                    <span className='errorMessasge'>{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</span>    
                                 </div>
 
 
