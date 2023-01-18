@@ -34,3 +34,17 @@ a {
 .trigger:hover {
   color: #55a9a6!important;
 }
+
+/* global */
+
+
+.inputError {
+  border-color: red!important;
+}
+.errorMessasge {
+  color: red;
+  font-size: 0.7rem;
+}
+.formFieldContainer {
+  height: 90px;
+}

@@ -16,14 +16,6 @@ h1, h3, p {
     background-repeat: no-repeat;
     background-size: cover;
 }
-.loginContainer {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    padding: 10% 20px 10%;
-    justify-content: space-between;
-    height: 800px;
-}
 .loginForm {
     display: flex !important;
     flex-direction: column;
@@ -56,7 +48,7 @@ h1 {
 .inputStyle {
     padding: 8px 3px;
     width: 100%;  
-    margin: 3px 0 20px 0; 
+    margin: 3px 0 3px 0; 
     border-radius: 0.25rem;
     border: 1px solid #ced4da;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -70,4 +62,65 @@ h1 {
     height: 2px;
     width: 100%;
     margin: 1rem 0;
+}
+
+
+
+.wrapper,
+.wrapperNameSurname {
+    display: flex;
+    justify-content: space-between;
+}
+.wrapperNameSurname, 
+.wrapperMaleFamel, 
+.wrapperAge {
+    margin: 3px 0 20px 0;
+}
+.passworsInput {
+    border: none;
+    outline: none;
+}
+.showHidebtn { 
+    margin: 0 5px;
+}
+.wrapperName, 
+.wrapperSurname {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% / 2);
+}
+.wrapperName input, 
+.wrapperSurname input {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    height: calc(1.5em + 0.75rem + 2px);
+    outline: 0;
+    color: #495057;
+    background-color: #ffffff;
+}
+.wrapperName, 
+.male, 
+.wrapperFisrtAge, 
+.wrapperSecondAge {
+    padding-right: 10px;
+}
+
+.wrapperAge {
+    display: flex;
+    flex-direction: column;
+}
+.wrapperAgeRanges {
+    display: flex;
+}
+.titleAge {
+    padding: 10px 0;
+}
+.signUpContainer {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    padding: 2% 5px 2%;
+    justify-content: space-between;
+    height: 800px;
 }
