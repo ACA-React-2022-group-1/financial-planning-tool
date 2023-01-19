@@ -1,8 +1,12 @@
-import React from "react";
-import { Space, Table, Tag } from 'antd';
+import React, { useState } from "react";
+import { Space, Table, Tag, Button, Typography  } from 'antd';
 import { UpSquareOutlined, DownSquareOutlined } from '@ant-design/icons';
 import "./Summary.css";
 
+import FilterComponent from '../../../components/filterComponent'
+
+
+const { Title } = Typography;
 const columns = [
   {
     title: 'Category',
@@ -36,6 +40,10 @@ const columns = [
     key: 'amount',
     dataIndex: 'amount',
     align: 'right',
+    sorter: (a, b) => a.amount - b.amount,
+    render: (amount) =>{ 
+       return <a>{amount}</a>
+    },
   },
 ];
 
@@ -64,7 +72,7 @@ const data = [
     tags: ['income'],
   },
   {
-    key: '3',
+    key: '4',
     id: "696f7890-f370-4517-b645-0a77312f6bad",
     categoryId: "d445bf76-8ceb-4573-bf02-9fd67c9fba93",
     name: 'Electronics store',
@@ -74,9 +82,28 @@ const data = [
 ];
 
 function Summary() {
+  const [filterByType, setFilterByType] = useState("all");
+
+
+  let filteredData = data.filter( item => {
+    if (filterByType === 'all') {
+      return true
+    }
+    return item.tags[0] === filterByType
+  })
+
+
   return (
     <div>
-      <Table title={() => 'Summary'} columns={columns} dataSource={data} />
+      <div className="summaryHeader">
+        <div>
+           <FilterComponent filterByType={filterByType} setFilterByType={setFilterByType}/>
+        </div>
+      </div>
+
+      <div>
+        <Table title={() => <Title level={3}>Summary</Title>} columns={columns} dataSource={filteredData} />
+      </div>
     </div>
   );
 }

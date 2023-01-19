@@ -27,10 +27,7 @@ a {
   text-decoration: none;
   color: #55a9a6;
 }
-.ant-menu-item.ant-menu-item-selected,
-.ant-menu-item.ant-menu-item-selected {
-  background-color: #55a9a6!important;
-}
+
 .trigger:hover {
   color: #55a9a6!important;
 }
@@ -47,4 +44,60 @@ a {
 }
 .formFieldContainer {
   height: 90px;
+}
+
+.actionButtonsContainer button{
+  margin-left: 10px;
+}
+
+.flexBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ant-typography {
+  margin-bottom: 5px!important;
+}
+
+.ant-card-body {
+  padding: 15px!important;
+}
+ 
+/* Ant design */
+
+/* layout */
+.ant-layout-header {
+  height: 150px!important;
+}
+
+.ant-radio-button-wrapper-checked {
+  border-color: #55a9a6!important;
+  color: #55a9a6!important;
+}
+.ant-radio-button-wrapper:hover {
+  color: #55a9a6!important;
+}
+.ant-pagination-item-active {
+  border-color: #55a9a6!important;
+  color: #55a9a6!important;
+}
+.ant-pagination-item-active a{
+  color: #55a9a6!important;
+}
+
+.ant-menu-item.ant-menu-item-selected,
+.ant-menu-item.ant-menu-item-selected {
+  background-color: #55a9a6!important;
+}
+
+/* balanceInfoWrapper */
+.balanceInfoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+.incomeInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
