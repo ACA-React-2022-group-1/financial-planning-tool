@@ -56,6 +56,7 @@ return ( <div className="loginPage">
                             .then((userCredential) => {
                                 const user = userCredential.user;
                                 console.log(user);
+                                localStorage.setItem("STORAGE_AUTH_USER", JSON.stringify(user))
                                 navigate("/home")
                             })
                             .catch((error) => {

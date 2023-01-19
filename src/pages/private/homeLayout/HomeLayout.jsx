@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../../../firebase';
 import {  signOut } from "firebase/auth";
 import './HomeLayout.css'
+import { useAuth } from  "../../../hooks/useAuth"
 
 import {
   MenuFoldOutlined,
@@ -31,6 +32,7 @@ const HomeLayout = () => {
     const {
         token: { colorBgContainer },
       } = theme.useToken();
+    const { logout } = useAuth();
  
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -38,7 +40,6 @@ const HomeLayout = () => {
               const uid = user.uid;
               console.log("uid", uid)
               setUser(user)
-              console.log("user", user)
             } else {
               console.log("user is logged out")
             }
@@ -49,9 +50,8 @@ const HomeLayout = () => {
 
     function logOut() {
         signOut(auth).then(() => {
-            // Sign-out successful.
+                logout();
                 navigate("/signin");
-                console.log("Signed out successfully")
             }).catch((error) => {
             // An error happened.
             });
