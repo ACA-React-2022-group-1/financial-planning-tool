@@ -24,10 +24,10 @@ const columns = [
           let color = tag === 'expense' ? 'volcano' : 'green';
           let icon = tag === 'expense' ? <DownSquareOutlined /> : <UpSquareOutlined />;
           return (
-            <div>
+            <div key={tag}>
               <Tag color={color} key={tag}>
-              {icon} {tag.toUpperCase()}
-            </Tag>
+               {icon} {tag.toUpperCase()}
+             </Tag>
             </div>
           );
         })}
@@ -41,8 +41,8 @@ const columns = [
     dataIndex: 'amount',
     align: 'right',
     sorter: (a, b) => a.amount - b.amount,
-    render: (amount) =>{ 
-       return <a>{amount}</a>
+    render: (_, record) =>{ 
+       return <span>{record.tags[0] === 'expense' ? `-${record.amount}` : `+${record.amount}`}</span>
     },
   },
 ];

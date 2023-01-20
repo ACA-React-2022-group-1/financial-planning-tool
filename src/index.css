@@ -101,3 +101,12 @@ a {
   flex-direction: column;
   justify-content: center;
 }
+
+/* Buttons */
+.outlinedGreenBtn {
+  color: #55a9a6!important;
+}
+.outlinedGreenBtn:hover {
+  color: #3ba8a5!important;
+  border-color: #3ba8a5!important;
+}

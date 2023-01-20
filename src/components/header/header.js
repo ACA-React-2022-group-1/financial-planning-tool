@@ -20,7 +20,6 @@ export default function HeaderComponent ({collapsed, setCollapsed, logOut}) {
 
     return(
         <div className='headerContainer'>
-            {/* <Switch checked={!loading} onChange={onChange} /> */}
             <div>
                 {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                 className: 'trigger',
@@ -28,8 +27,8 @@ export default function HeaderComponent ({collapsed, setCollapsed, logOut}) {
                 })}  
             </div>
             <div className="actionButtonsContainer">
-                <Button type="primary">Add Income</Button>
-                <Button type="dashed" danger>Add Expence</Button>
+                <Button type="primary" size="large">Add Income</Button>
+                <Button type="dashed" size="large" danger>Add Expence</Button>
             </div>
             <div className="balanceInfoWrapper">
                 <Card style={{ width: 200, height: 120, marginRight: 10 }} loading={loading}>

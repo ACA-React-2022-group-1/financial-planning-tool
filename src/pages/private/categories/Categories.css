@@ -1,0 +1,18 @@
+/* header */
+.categoryHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.categoryHeader div {
+    margin-right: 25px;
+}
+
+/* Table */
+.categoriesTableContainer {
+   display: flex;
+   justify-content: center; 
+}
+.categoriesTable {
+   width: 80%;
+}
