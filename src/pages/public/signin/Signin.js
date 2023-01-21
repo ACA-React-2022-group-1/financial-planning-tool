@@ -32,11 +32,6 @@ const Login = () => {
         if (!value) {
             errorMessage = 'Required field';
         } 
-        // else if (
-        //     !/^(?=.*\d)(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/i.test(value)
-        // ) {
-        //     errorMessage = 'Invalid password';
-        // }
         return errorMessage
     }
 
