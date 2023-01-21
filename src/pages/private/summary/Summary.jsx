@@ -102,7 +102,12 @@ function Summary() {
       </div>
 
       <div>
-        <Table title={() => <Title level={3}>Summary</Title>} columns={columns} dataSource={filteredData} />
+        <Table 
+        title={() => <Title level={3}>Summary</Title>} 
+        columns={columns} 
+        dataSource={filteredData}
+        pagination={{ defaultPageSize: 7, showSizeChanger: true, pageSizeOptions: ['7', '14', '21']}}
+         />
       </div>
     </div>
   );

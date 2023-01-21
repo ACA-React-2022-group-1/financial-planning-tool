@@ -8,6 +8,7 @@ import {
     EllipsisOutlined,
      SettingOutlined
   } from '@ant-design/icons';
+import AddIncomeOrExpense from '../addIncomeOrExpense/AddIncomeOrExpense';
 
 const { Meta } = Card;  
 const { Title } = Typography;
@@ -27,8 +28,9 @@ export default function HeaderComponent ({collapsed, setCollapsed, logOut}) {
                 })}  
             </div>
             <div className="actionButtonsContainer">
-                <Button type="primary" size="large">Add Income</Button>
-                <Button type="dashed" size="large" danger>Add Expence</Button>
+                <AddIncomeOrExpense />
+                {/* <Button type="primary" size="large">Add Income</Button>
+                <Button type="dashed" size="large" danger>Add Expence</Button> */}
             </div>
             <div className="balanceInfoWrapper">
                 <Card style={{ width: 200, height: 120, marginRight: 10 }} loading={loading}>

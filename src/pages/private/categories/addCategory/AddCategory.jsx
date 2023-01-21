@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Modal, Form, Input, Select, Typography } from 'antd';
 import { useState } from 'react';
 import { AppstoreAddOutlined } from '@ant-design/icons';
@@ -5,6 +6,7 @@ import { v4 as uuidv4} from 'uuid';
 
 import './AddCategory.css'
 import Column from 'antd/es/table/Column';
+import { DataContext } from '../../homeLayout/HomeLayout';
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -28,14 +30,17 @@ const layout = {
 
 
 const AddCategory = () => {
+  const {categories, addCategory} = React.useContext(DataContext)
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
 // on submit click is succes
   const onFinish = (values) => {
-    console.log({...values, categoryId: uuidv4()} );
+    const uniqueId = uuidv4();
     setIsModalOpen(false);
+    const createdCategory = {...values, categoryId: uniqueId, key: uniqueId}
+    addCategory(createdCategory)
     form.resetFields()
   };
 
@@ -102,17 +107,6 @@ const AddCategory = () => {
                     noStyle
                     shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
                 >
-                    {/* {({ getFieldValue }) =>
-                    getFieldValue('gender') === 'other' ? (
-                        <Form.Item
-                        name="customizeGender"
-                        label="Customize Gender"
-                        rules={[{required: true,}]}
-                        >
-                        <Input />
-                        </Form.Item>
-                    ) : null
-                    } */}
                 </Form.Item>
                 <Form.Item {...tailLayout}>
                     <div className='actionButtonsContainer'>

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Space, Table, Tag, Button, Typography  } from 'antd';
 import { UpSquareOutlined, DownSquareOutlined, AppstoreAddOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import AddCategory from "./addCategory/AddCategory";
+import {DataContext} from '../../private/homeLayout/HomeLayout'
 import './Categories.css'
 
 import FilterComponent from '../../../components/filterComponent'
@@ -18,23 +19,21 @@ const columns = [
   },
   {
     title: 'Types',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }, record) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag === 'expense' ? 'volcano' : 'green';
-          let icon = tag === 'expense' ? <DownSquareOutlined /> : <UpSquareOutlined />;
+    key: 'type',
+    dataIndex: 'type',
+    render: (type) => {
+      let color = type === 'expense' ? 'volcano' : 'green';
+      let icon = type === 'expense' ? <DownSquareOutlined /> : <UpSquareOutlined />;
+        {
           return (
-            <div key={tag}>
-              <Tag color={color} key={record.id}>
-              {icon} {tag.toUpperCase()}
-            </Tag>
+            <div>
+              <Tag color={color}>
+                {icon} {type.toUpperCase()}
+              </Tag>
             </div>
           );
-        })}
-      </>
-    ),
+        }
+      }
   },
   {
     title: 'Actions',
@@ -54,45 +53,18 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: '5',
-    id: "0236d1e5-90f3-412d-84ad-057a1334a805",
-    categoryId: "148884b0-a60e-4ec6-ba14-83b3944bdfb0",
-    name: 'Concert',
-    tags: ['expense'],
-  },
-  {
-    key: '6',
-    id: "851f66f3-9404-4657-bf8c-e5bcd296f823",
-    categoryId: "fa791c9b-4ea1-449e-8f2e-caf6172a5321",
-    name: 'Groceries',
-    tags: ['expense'],
-  },
-  {
-    key: '7',
-    categoryId: "d445bf76-8ceb-4573-bf02-9fd67c9fba93",
-    name: 'Programming',
-    tags: ['income'],
-  },
-  {
-    key: '8',
-    id: "696f7890-f370-4517-b645-0a77312f6bad",
-    categoryId: "d445bf76-8ceb-4573-bf02-9fd67c9fba93",
-    name: 'Electronics store',
-    tags: ['income'],
-  },
-];
+
 
 function Categories() {
+  const {categories, addCategory} = React.useContext(DataContext)
   const [filterByType, setFilterByType] = useState("all");
 
 
-  let filteredData = data.filter( item => {
+  let filteredData = categories.filter( item => {
     if (filterByType === 'all') {
       return true
     }
-    return item.tags[0] === filterByType
+    return item.type === filterByType
   })
 
 
@@ -108,7 +80,12 @@ function Categories() {
       </div>
       <div className="categoriesTableContainer">
         <div className="categoriesTable">
-            <Table title={() => <Title level={3}>Categories</Title>} columns={columns} dataSource={filteredData} />
+            <Table 
+            title={() => <Title level={3}>Categories</Title>} 
+            columns={columns} 
+            dataSource={filteredData}
+            pagination={{ defaultPageSize: 7, showSizeChanger: true, pageSizeOptions: ['7', '14', '21']}}
+             />
         </div>
       </div>
     </div>
