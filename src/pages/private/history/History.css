@@ -1,0 +1,78 @@
+.ant-select-selector:hover{
+    border-color: rgb(110 182 180) !important;
+    color:  rgb(110 182 180) !important;
+}
+.order,.type, .view{
+    position: relative;
+}
+.order::before, .type::before, .period::before, .view::before{
+    transition: .5s;
+    padding: 0 5px;
+    position: absolute;
+    top: -20%;
+    left: 5%;
+    z-index: 1;
+    background-color: #fff;
+    font-size: 10px;
+}
+.view::before{
+    content: "View";
+}
+.period::before{
+    content: "Period";
+}
+.type::before{
+    content: "Type";
+}
+.order::before{
+    content: "Sort By Amount";
+}
+
+.carts {
+    padding: 25px 0;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.cart {
+    width: 350px;
+    height: 140px;
+    border: 1px gray solid;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 45px;
+    padding: 20px;
+}
+
+.headerPartOfCart  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.headerPartOfCart p {
+    color: blue;
+    font-size: 18px;
+}
+
+.headerIcons {
+    display: flex;
+    column-gap: 20px;
+    cursor: pointer;
+}
+
+.headerIcons img {
+    width: 20px;
+    height: 20px;
+}
+
+.footerPartOfCart {
+    padding: 15px 0;
+    display: flex;
+    border-top: 1px solid;
+    justify-content: space-between;
+    align-items: flex-end;
+}
