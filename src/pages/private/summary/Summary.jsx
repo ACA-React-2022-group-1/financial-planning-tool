@@ -56,7 +56,6 @@ function Summary() {
     })
     const categoriesWithAmount = categoryIdes.map( item => {
       let finalAmount = 0;
-      console.log(amounts, 'amounts')
       amounts.forEach(element => {
         if( element.categoryId === item.categoryId) {
         finalAmount = finalAmount + element.amount

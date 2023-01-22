@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Card, Skeleton, Switch, Button, Typography } from 'antd';
+import  moment  from "moment";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -18,9 +19,14 @@ export default function HeaderComponent ({collapsed, setCollapsed}) {
     const {categories, amounts, addCategory, incomeCategories, expenseCategories, addAmountByCategory  } = React.useContext(DataContext)
     const [loading, setLoading] = useState(false);
     const [categoriesWithAmount, setCategoriesWithAmount] = useState([])
+    const [currenMonthIncome, setCurrenMonthIncome] = useState(null)
+    const [upcomingIncome, setUpcomingIncome] = useState(null)
+    const [currenMonthExpense, setCurrenMonthExpense] = useState(null)
+    const [upcomingExpense, setUpcomingExpense] = useState(null)
     const onChange = (checked) => {
         setLoading(!checked);
       };  
+    const currentMonthName = moment().format('MMMM')
 
     useEffect( () => {
         calculateCategoriesWithAmount()
@@ -33,11 +39,9 @@ export default function HeaderComponent ({collapsed, setCollapsed}) {
     const categoriesWithAmount = categoryIdes.map( item => {
         let currenMonthAmount = 0;
         let upcomingAmount = 0;
-        console.log(amounts, 'amounts')
         amounts.forEach(element => {
         const currentMonth = new Date().getMonth();  
         const amountsMonth = new Date(element.date.seconds * 1000).getMonth();  
-        debugger;
         if( element.categoryId === item.categoryId && currentMonth === amountsMonth) {
             currenMonthAmount = currenMonthAmount + element.amount
         } else if(element.categoryId === item.categoryId && currentMonth !== amountsMonth) {
@@ -53,8 +57,17 @@ export default function HeaderComponent ({collapsed, setCollapsed}) {
 
 
     function calculateIncomeExpenseBalance(newCategoriesWithAmount) {
-       console.log(newCategoriesWithAmount);
-    //    newCategoriesWithAmount.map()
+       const incomeArray = newCategoriesWithAmount.filter( (item) => item.type === 'income');
+       const expenseArray = newCategoriesWithAmount.filter( (item) => item.type === 'expense');
+       const currenMonthIncome = incomeArray.reduce( (accumulator, currentValue) => accumulator + currentValue.currenMonthAmount, 0)
+       setCurrenMonthIncome(currenMonthIncome)
+       const upcomingIncome = incomeArray.reduce( (accumulator, currentValue) => accumulator + currentValue.upcomingAmount, 0)
+       setUpcomingIncome(upcomingIncome)
+
+       const currenMonthExpense = expenseArray.reduce( (accumulator, currentValue) => accumulator + currentValue.currenMonthAmount, 0)
+       setCurrenMonthExpense(currenMonthExpense)
+       const upcomingExpense = expenseArray.reduce( (accumulator, currentValue) => accumulator + currentValue.upcomingAmount, 0)
+       setUpcomingExpense(upcomingExpense)
     }
 
     return(
@@ -67,49 +80,47 @@ export default function HeaderComponent ({collapsed, setCollapsed}) {
             </div>
             <div className="actionButtonsContainer">
                 <AddIncomeOrExpense />
-                {/* <Button type="primary" size="large">Add Income</Button>
-                <Button type="dashed" size="large" danger>Add Expence</Button> */}
             </div>
             <div className="balanceInfoWrapper">
                 <Card style={{ width: 200, height: 120, marginRight: 10 }} loading={loading}>
-                    <Meta title="Income" />
+                    <Meta title={`Income for ${currentMonthName}`} />
                     <div className="incomeInfoContainer">
-                        <Title level={3} style={{ color: '#57f542' }}>1,850 $</Title>
+                        <Title level={3} style={{ color: '#57f542' }}>{currenMonthIncome} $</Title>
                         <div className="flexBetween">
-                            {/* <div>Upcoming </div>
-                            <div>+6,500</div> */}
+                            <div> upcoming </div>
+                            <div>{upcomingIncome} $</div>
                         </div>
                         <div className="flexBetween">
-                            {/* <div>Total</div>
-                            <div>+8,350</div> */}
+                            <div>Total</div>
+                            <div>+ {currenMonthIncome + upcomingIncome} $</div>
                         </div>
                     </div>
                 </Card>
                 <Card style={{ width: 200, height: 120, marginRight: 10 }} loading={loading} >
-                    <Meta title="Expense" />
+                    <Meta title={`Expense for ${currentMonthName}`} />
                     <div className="incomeInfoContainer">
-                        <Title level={3} style={{ color: '#f54242' }}>-1,300 $</Title>
+                        <Title level={3} style={{ color: '#f54242' }}>{currenMonthExpense} $</Title>
                         <div className="flexBetween">
-                            {/* <div>Upcoming </div>
-                            <div>0</div> */}
+                            <div>Upcoming </div>
+                            <div>{upcomingExpense}</div>
                         </div>
                         <div className="flexBetween">
-                            {/* <div>Total</div>
-                            <div>-1,300</div> */}
+                            <div>Total</div>
+                            <div>{currenMonthExpense + upcomingExpense}</div>
                         </div>
                     </div>
                 </Card>
                 <Card style={{ width: 200, height: 120 }} loading={loading} >
-                    <Meta title="Balance" />
+                    <Meta title={`Balance for ${currentMonthName}`} />
                     <div className="incomeInfoContainer">
-                        <Title level={3} style={{ color: '#55a9a6' }}>550 $</Title>
+                        <Title level={3} style={{ color: '#55a9a6' }}>{currenMonthIncome + currenMonthExpense} $</Title>
                         <div className="flexBetween">
-                            {/* <div>Upcoming </div>
-                            <div>6,500</div> */}
+                            <div>Upcoming </div>
+                            <div>{upcomingIncome + upcomingExpense} $</div>
                         </div>
                         <div className="flexBetween">
-                            {/* <div>Total</div>
-                            <div>7,050</div> */}
+                            <div>Total</div>
+                            <div>{currenMonthIncome + upcomingIncome + currenMonthExpense + upcomingExpense} $</div>
                         </div>
                     </div>
                 </Card>

@@ -21,7 +21,7 @@ import {
   SettingOutlined,
   PoweroffOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme, message  } from 'antd';
 import AddCategory from '../categories/addCategory/AddCategory';
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -70,6 +70,8 @@ const HomeLayout = () => {
     const [ incomeCategories, setIncomeCategories] = useState([])
     const [ expenseCategories, setExpenseCategories] = useState([])
     const [ amounts, setAmounts ] = useState([])
+    // success or error message 
+    const [messageApi, contextHolder] = message.useMessage();
     
     const [collapsed, setCollapsed] = useState(false);
     const [user, setUser] = useState({});
@@ -82,7 +84,6 @@ const HomeLayout = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
               const uid = user.uid;
-              console.log("uid", uid)
               setUser(user)
             } else {
               console.log("user is logged out")
@@ -145,12 +146,17 @@ const HomeLayout = () => {
     }
     // delete category by categoryId
     function deleteCategory(categoryId) {
-      deleteDoc(doc(firestore, "categories", categoryId));
+      deleteDoc(doc(firestore, "categories", categoryId)).then(
+        messageApi.open({
+          type: 'success',
+          content: 'Category has been successfully deleted!',
+        })
+      );
       getCategories();
     }
 
     return (
-        <DataContext.Provider value={{ categories, addCategory, incomeCategories, expenseCategories, amounts, addAmountByCategory, deleteCategory }}>
+        <DataContext.Provider value={{ categories, addCategory, incomeCategories, expenseCategories, amounts, addAmountByCategory, deleteCategory, messageApi }}>
               <Layout>
                 <Sider trigger={null} collapsible collapsed={collapsed}>
                   <div className="logo" />
@@ -173,7 +179,7 @@ const HomeLayout = () => {
                     <Outlet></Outlet>
 
                   </Content>
-
+                  {contextHolder} 
                   <Footer style={{ textAlign: 'center' }}>Financial Management Tool ©2023 Created by Ant UED & xumb1</Footer>
 
                 </Layout>

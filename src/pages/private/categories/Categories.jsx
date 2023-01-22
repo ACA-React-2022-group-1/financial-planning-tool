@@ -48,7 +48,6 @@ function Categories() {
       dataIndex: 'actions',
       align: 'right',
       render: (_, record) =>{ 
-        console.log(record, 'record')
          return (<div className="actionButtonsContainer">
                   <Button className="outlinedGreenBtn" icon={<EditOutlined />} size={"small"}>
                       Edit
@@ -75,7 +74,6 @@ function Categories() {
     message.success('Clicked on Yes');
   };
   const cancelDelete = (e) => {
-    console.log(e);
     message.error('Clicked on No');
   };
 
@@ -86,6 +84,8 @@ function Categories() {
     }
     return item.type === filterByType
   })
+
+
 
 
   return (

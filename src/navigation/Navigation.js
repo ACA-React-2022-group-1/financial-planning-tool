@@ -17,7 +17,6 @@ import { useAuth } from  "../hooks/useAuth"
 
 export const Navigation = () => {
     const { getUser } = useAuth();
-    console.log(getUser())
   return (
     <Routes>
       {/** Private routes for logged users */}

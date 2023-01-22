@@ -53,7 +53,6 @@ return ( <div className="loginPage">
                             await createUserWithEmailAndPassword(auth, values.email, values.password)
                             .then((userCredential) => {
                                 const user = userCredential.user;
-                                console.log(user);
                                 navigate("/signin")
                             })
                             .catch((error) => {
