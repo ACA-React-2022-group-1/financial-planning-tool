@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Card, Skeleton, Switch, Button, Typography } from 'antd';
 import {
     MenuFoldOutlined,
@@ -9,15 +9,52 @@ import {
      SettingOutlined
   } from '@ant-design/icons';
 import AddIncomeOrExpense from '../addIncomeOrExpense/AddIncomeOrExpense';
+import { DataContext } from "../../pages/private/homeLayout/HomeLayout";
 
 const { Meta } = Card;  
 const { Title } = Typography;
 
-export default function HeaderComponent ({collapsed, setCollapsed, logOut}) {
+export default function HeaderComponent ({collapsed, setCollapsed}) {
+    const {categories, amounts, addCategory, incomeCategories, expenseCategories, addAmountByCategory  } = React.useContext(DataContext)
     const [loading, setLoading] = useState(false);
+    const [categoriesWithAmount, setCategoriesWithAmount] = useState([])
     const onChange = (checked) => {
         setLoading(!checked);
-      };
+      };  
+
+    useEffect( () => {
+        calculateCategoriesWithAmount()
+    },[amounts])  
+
+    function calculateCategoriesWithAmount() {
+    const categoryIdes = categories.map( item => {
+    return {...item, categoryId: item.categoryId, name: item.name}
+    })
+    const categoriesWithAmount = categoryIdes.map( item => {
+        let currenMonthAmount = 0;
+        let upcomingAmount = 0;
+        console.log(amounts, 'amounts')
+        amounts.forEach(element => {
+        const currentMonth = new Date().getMonth();  
+        const amountsMonth = new Date(element.date.seconds * 1000).getMonth();  
+        debugger;
+        if( element.categoryId === item.categoryId && currentMonth === amountsMonth) {
+            currenMonthAmount = currenMonthAmount + element.amount
+        } else if(element.categoryId === item.categoryId && currentMonth !== amountsMonth) {
+            upcomingAmount = upcomingAmount + element.amount
+        }
+        })
+        return {...item, currenMonthAmount ,upcomingAmount }
+    })
+    setCategoriesWithAmount(categoriesWithAmount)
+    calculateIncomeExpenseBalance(categoriesWithAmount)
+    return categoriesWithAmount
+    }
+
+
+    function calculateIncomeExpenseBalance(newCategoriesWithAmount) {
+       console.log(newCategoriesWithAmount);
+    }
 
     return(
         <div className='headerContainer'>
@@ -38,12 +75,12 @@ export default function HeaderComponent ({collapsed, setCollapsed, logOut}) {
                     <div className="incomeInfoContainer">
                         <Title level={3} style={{ color: '#57f542' }}>1,850 $</Title>
                         <div className="flexBetween">
-                            <div>Upcoming </div>
-                            <div>+6,500</div>
+                            {/* <div>Upcoming </div>
+                            <div>+6,500</div> */}
                         </div>
                         <div className="flexBetween">
-                            <div>Total</div>
-                            <div>+8,350</div>
+                            {/* <div>Total</div>
+                            <div>+8,350</div> */}
                         </div>
                     </div>
                 </Card>
@@ -52,12 +89,12 @@ export default function HeaderComponent ({collapsed, setCollapsed, logOut}) {
                     <div className="incomeInfoContainer">
                         <Title level={3} style={{ color: '#f54242' }}>-1,300 $</Title>
                         <div className="flexBetween">
-                            <div>Upcoming </div>
-                            <div>0</div>
+                            {/* <div>Upcoming </div>
+                            <div>0</div> */}
                         </div>
                         <div className="flexBetween">
-                            <div>Total</div>
-                            <div>-1,300</div>
+                            {/* <div>Total</div>
+                            <div>-1,300</div> */}
                         </div>
                     </div>
                 </Card>
@@ -66,12 +103,12 @@ export default function HeaderComponent ({collapsed, setCollapsed, logOut}) {
                     <div className="incomeInfoContainer">
                         <Title level={3} style={{ color: '#55a9a6' }}>550 $</Title>
                         <div className="flexBetween">
-                            <div>Upcoming </div>
-                            <div>6,500</div>
+                            {/* <div>Upcoming </div>
+                            <div>6,500</div> */}
                         </div>
                         <div className="flexBetween">
-                            <div>Total</div>
-                            <div>7,050</div>
+                            {/* <div>Total</div>
+                            <div>7,050</div> */}
                         </div>
                     </div>
                 </Card>

@@ -1,5 +1,4 @@
 import './Charts.css'
-//import { Pie, G2 } from '@ant-design/plots';
 import { Mix } from '@ant-design/plots';
 import { DataView } from '@antv/data-set';
 function Charts() {

@@ -11,3 +11,20 @@
 .ant-form-horizontal {
     width: 400px;
 }
+
+.incomeOrExpenseModal .ant-modal-header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+.incomeOrExpenseModal.income .ant-modal-header {
+    background-color: #57f542;
+}
+.incomeOrExpenseModal.expense .ant-modal-header {
+    background-color: #f54242;
+}
+
+.incomeOrExpenseModal .ant-modal-content {
+    padding: 0;
+}

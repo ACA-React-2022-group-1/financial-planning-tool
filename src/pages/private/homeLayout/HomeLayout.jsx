@@ -3,9 +3,10 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../../../firebase';
-import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { firestore  } from '../../../firebase';
 import {  signOut } from "firebase/auth";
+import { moment } from 'moment';
 
 import './HomeLayout.css'
 import { useAuth } from  "../../../hooks/useAuth"
@@ -66,6 +67,10 @@ export const DataContext = React.createContext();
 const HomeLayout = () => {
     const navigate = useNavigate();
     const [ categories, setCategories ] = useState([]);
+    const [ incomeCategories, setIncomeCategories] = useState([])
+    const [ expenseCategories, setExpenseCategories] = useState([])
+    const [ amounts, setAmounts ] = useState([])
+    
     const [collapsed, setCollapsed] = useState(false);
     const [user, setUser] = useState({});
     const { token: { colorBgContainer } } = theme.useToken();
@@ -88,6 +93,7 @@ const HomeLayout = () => {
 
     useEffect( () => {
       // get categories
+      getAllAmounts();
       getCategories(); 
     }, [])
 
@@ -95,7 +101,20 @@ const HomeLayout = () => {
       const newData = [];
       getDocs(collection(firestore, "categories"))
       .then( querySnapshot => querySnapshot.forEach( item => newData.push(item.data())))
-      .then( res => setCategories(newData)) 
+      .then( res => {
+        setCategories(newData)
+        setIncomeCategories(newData.filter( item => item.type === 'income'))
+        setExpenseCategories(newData.filter( item => item.type === 'expense'))
+      }) 
+    }
+
+    function getAllAmounts() {
+      const newAmounts = [];
+      getDocs(collection(firestore, "amounts"))
+      .then( querySnapshot => querySnapshot.forEach( item => newAmounts.push(item.data())))
+      .then( res => {
+        setAmounts(newAmounts)
+      }) 
     }
 
     function logOut() {
@@ -119,10 +138,19 @@ const HomeLayout = () => {
       setDoc(doc(firestore, "categories", data.categoryId), data);
       getCategories();
     }
+    // Add amount By category
+    function addAmountByCategory(data) {
+      setDoc(doc(firestore, "amounts", data.id), data);
+      getAllAmounts();
+    }
+    // delete category by categoryId
+    function deleteCategory(categoryId) {
+      deleteDoc(doc(firestore, "categories", categoryId));
+      getCategories();
+    }
 
- 
     return (
-        <DataContext.Provider value={{ categories, addCategory }}>
+        <DataContext.Provider value={{ categories, addCategory, incomeCategories, expenseCategories, amounts, addAmountByCategory, deleteCategory }}>
               <Layout>
                 <Sider trigger={null} collapsible collapsed={collapsed}>
                   <div className="logo" />
