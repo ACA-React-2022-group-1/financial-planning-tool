@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.manualTxt {
+    padding: 20px;
+    text-align: justify;
+    color: rgba(0,0,0,0.88);
+    font-size: 1.2em;
+}
+.ant-collapse-header-text {
+   font-weight: 600;
+   font-size: 16px;
+}

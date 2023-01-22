@@ -54,6 +54,7 @@ export default function HeaderComponent ({collapsed, setCollapsed}) {
 
     function calculateIncomeExpenseBalance(newCategoriesWithAmount) {
        console.log(newCategoriesWithAmount);
+    //    newCategoriesWithAmount.map()
     }
 
     return(

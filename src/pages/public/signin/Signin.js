@@ -52,7 +52,9 @@ return ( <div className="loginPage">
                                 const user = userCredential.user;
                                 console.log(user);
                                 localStorage.setItem("STORAGE_AUTH_USER", JSON.stringify(user))
-                                navigate("/home")
+                                setTimeout( () => {
+                                   navigate("/home") 
+                                })
                             })
                             .catch((error) => {
                                 const errorCode = error.code;

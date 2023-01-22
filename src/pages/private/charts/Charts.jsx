@@ -1,7 +1,20 @@
+import React from 'react';
 import './Charts.css'
 import { Mix } from '@ant-design/plots';
 import { DataView } from '@antv/data-set';
+
+import { DataContext } from '../homeLayout/HomeLayout'
+
+
+
+
 function Charts() {
+  const {categories, amounts, addCategory, incomeCategories, expenseCategories, addAmountByCategory  } = React.useContext(DataContext)
+  console.log(categories, 'categories', amounts, 'amounts')
+
+
+
+
     const data = [
         ['Unitility', 51, 45, 6],
         ['Educational', 67, 39, 28],
