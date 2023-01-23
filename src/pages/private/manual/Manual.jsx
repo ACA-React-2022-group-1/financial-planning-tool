@@ -1,8 +1,10 @@
 import React from "react";
 import { Collapse } from "antd";
-import "./Manual.css";
-// import logo from "../../../assets/images/logo.png";
+
+import { GithubOutlined, LinkedinOutlined } from '@ant-design/icons'
+
 const { Panel } = Collapse;
+
 function Manual() {
   return (
     <div>
@@ -17,7 +19,6 @@ function Manual() {
             and type in ascending or descending order and also separate current and upcoming
             costs and income.
           </p>
-          {/* <img src={logo}/> */}
         </Panel>
         <Panel header="History" key="2">
           <p className="manualTxt">
@@ -52,6 +53,30 @@ function Manual() {
             It also gives an opportunity to illustrate costs and income on graphs, which helps to collect
             comprehensive information about all cost and income components in total.
           </p>
+          <h3>On this program works</h3>
+          <div className="members">
+            <div className="member">
+              <h4>Davit Sahakyan</h4>
+              <div className="social">
+                <a href='https://github.com/davitSahakyan' target='_blank'><GithubOutlined /></a>
+                <a href='https://www.linkedin.com/in/davit-sahakyan-364a51184/' target='_blank'><LinkedinOutlined /></a>
+              </div>
+            </div>
+            <div className="member">
+              <h4>Narek Yeritsyan</h4>
+              <div className="social">
+                <a href='https://github.com/Narek003' target='_blank'><GithubOutlined /></a>
+                <a href='https://www.linkedin.com/in/narek-yeritsyan-449a61255/' target='_blank'><LinkedinOutlined /></a>
+              </div>
+            </div>
+            <div className="member">
+              <h4>Mane Sofyan</h4>
+              <div className="social">
+                <a href='https://github.com/Mane45' target='_blank'><GithubOutlined /></a>
+                <a href='https://www.linkedin.com/in/mane-sofyan-b6120b14a/' target='_blank'><LinkedinOutlined /></a>
+              </div>
+            </div>
+          </div>
         </Panel>
       </Collapse>
     </div>

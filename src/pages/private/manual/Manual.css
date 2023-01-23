@@ -13,3 +13,33 @@
    font-weight: 600;
    font-size: 16px;
 }
+h3 {
+    font-size: 16px;
+    margin-left: 20px !important;
+}
+.members {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    width: 80%
+}
+.member {
+    border: 1px solid #D9D9D9;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.social {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 50px;
+}
+.social a:hover {
+    opacity: 0.7
+}
