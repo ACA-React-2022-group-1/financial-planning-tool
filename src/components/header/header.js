@@ -37,7 +37,6 @@ export default function HeaderComponent ({collapsed, setCollapsed}) {
         amounts.forEach(element => {
         const currentMonth = new Date().getMonth();  
         const amountsMonth = new Date(element.date.seconds * 1000).getMonth();  
-        debugger;
         if( element.categoryId === item.categoryId && currentMonth === amountsMonth) {
             currenMonthAmount = currenMonthAmount + element.amount
         } else if(element.categoryId === item.categoryId && currentMonth !== amountsMonth) {

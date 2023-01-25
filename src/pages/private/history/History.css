@@ -2,6 +2,7 @@
     border-color: rgb(110 182 180) !important;
     color:  rgb(110 182 180) !important;
 }
+
 .order,.type, .view{
     position: relative;
 }
@@ -28,51 +29,19 @@
     content: "Sort By Amount";
 }
 
-.carts {
+.cards {
     padding: 25px 0;
     display: flex;
     flex-direction: row;
     gap: 30px;
     flex-wrap: wrap;
 }
-
-.cart {
-    width: 350px;
-    height: 140px;
-    border: 1px gray solid;
-    border-radius: 25px;
+.ant-list-items{
     display: flex;
-    flex-direction: column;
-    row-gap: 45px;
-    padding: 20px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
 }
-
-.headerPartOfCart  {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.headerPartOfCart p {
-    color: blue;
-    font-size: 18px;
-}
-
-.headerIcons {
-    display: flex;
-    column-gap: 20px;
-    cursor: pointer;
-}
-
-.headerIcons img {
-    width: 20px;
-    height: 20px;
-}
-
-.footerPartOfCart {
-    padding: 15px 0;
-    display: flex;
-    border-top: 1px solid;
-    justify-content: space-between;
-    align-items: flex-end;
-}
+/* .ant-list-item{
+    flex-basis: 25%; */
+/* } */
