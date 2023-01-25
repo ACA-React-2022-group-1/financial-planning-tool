@@ -143,7 +143,7 @@ const AddIncomeOrExpense = () => {
                         format="YYYY-MM-DD"
                         disabledDate={(current) => {
                           return moment().add(-1, 'days')  >= current ||
-                               moment().add(1, 'month')  <= current;
+                               moment().add(4, 'month')  <= current;
                           }}
                         />
                     </Form.Item>
