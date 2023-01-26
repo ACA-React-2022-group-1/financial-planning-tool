@@ -9,3 +9,12 @@
 .card:hover{
     box-shadow: 4px 8px 16px rgb(155, 153, 153) !important;
 }
+
+.d-flex-card {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+.categoryName {
+   font-weight: 700; 
+}

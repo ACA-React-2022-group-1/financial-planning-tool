@@ -4,32 +4,41 @@ import moment from "moment/moment";
 import "./CardComponent.css";
 
 function CardComponent({data}) {
-  const {name, amount, date, catgoryName} = data
+  const {name, amount, date, categoryName} = data
+  debugger;
   return (
     <div className="site-card-border-less-wrapper">
       <Card
         className="card"
-        title={name}
+        title={
+          <div className="d-flex-card">
+            <div>{name}</div>
+            <div>
+              <Button
+                className="outlinedGreenBtn"
+                icon={<EditOutlined />}
+                size={"medium"}
+              >
+              </Button>
+              <Button style={{marginLeft: "5px"}} danger icon={<DeleteOutlined />} size={"medium"}>
+              </Button>
+            </div>
+          </div> 
+
+        }
         bordered={false}
         style={{
           width: 300,
         }}
-      >
-        <p>{catgoryName}</p>
-        <p>{amount}$</p>
-        <p>{moment(date).format('MMMM d, YYYY')}</p>
+      > 
         <div className="icons">
-          <Button
-            className="outlinedGreenBtn"
-            icon={<EditOutlined />}
-            size={"small"}
-          >
-            Edit
-          </Button>
-          <Button danger icon={<DeleteOutlined />} size={"small"}>
-            Delete
-          </Button>
-        </div>
+            
+          </div>
+          <div className="d-flex-card">
+            <div className="categoryName">{categoryName}</div>
+            <div>{amount}$</div>
+            <div>{moment(date).format('MMMM d, YYYY')}</div>
+          </div>
       </Card>
     </div>
   );

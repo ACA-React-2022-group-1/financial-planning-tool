@@ -4,120 +4,84 @@ import { Mix } from '@ant-design/plots';
 import { DataView } from '@antv/data-set';
 import { DataContext } from '../homeLayout/HomeLayout'
 import { ContactsOutlined } from '@ant-design/icons';
-const mounth = {
-  0: 'January',
-  1: 'February',
-  2: 'March',
-  3: 'April',
-  4: 'May',
-  5: 'June',
-  6: 'July',
-  7: 'August',
-  8: 'September',
-  9: 'October',
-  10: 'November',
-  11: 'December'
-}
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
 function Charts() {
   const { categories, amounts, addCategory, incomeCategories, expenseCategories, addAmountByCategory } = React.useContext(DataContext)
-  //let currentIncoming = 0;
-  const [currentExpense, setCurrentExpense] = useState(0)
-  let data = [];
-  let mounthData1 = [];
-  let sumOfIncome = [];
-  let sumIncomMonthly = [];
-  let mounthData = [];
-  //let x = 0;
-  //const currentMonth = new Date().getMonth();
-  //console.log(incomeCategories);
-  incomeCategories.forEach(category => {
-    let value = amounts.filter(item => {
-      return category.categoryId === item.categoryId
-    });
-    //console.log(value);
-    //let x = value.length;
-    //console.log(x);
-    //console.log(amounts);
-    //console.log(new Date(value[0].date.seconds * 1000).getMonth())
-    //let num = new Date(value[0].date.seconds * 1000).getMonth();
-    //let num = new Date(1674458208 * 1000).getMonth();
-    //console.log(num);
-    // if(currentMonth === num) {currentIncoming += 1200};
-    //if(currentMonth === num) {currentIncoming += value[0].amount};
-    //mounthData.push([mounth[new Date(value[0].date.seconds * 1000).getMonth()], value[0].amount, value[0].amount]);
-    //mounthData.push([mounth[new Date(1674458208 * 1000).getMonth()], 1200, 1200]);
-    sumOfIncome = value.map(item => {
-      return [item.amount, item.date.seconds]
+
+  let allIncomeAmounts = []
+  incomeCategories.forEach( (incomeCategorie) => {
+    let eachCategoriAmounts = amounts.filter(item =>  item.categoryId === incomeCategorie.categoryId );
+    let eachCategoriAmountsNewObj = eachCategoriAmounts.map( item =>  {
+     return {amount: item.amount , month: new Date(item.date.seconds * 1000).toLocaleString('en-us', { month: 'long' })}
     })
-    //console.log(sumOfIncome);
-    sumIncomMonthly = sumOfIncome.reduce(function (previousValue, currentValue) {
-      return [(previousValue[0] + currentValue[0]), previousValue[1]];
-    });
-    //console.log(sumIncomMonthly);
-    mounthData1.push([mounth[new Date(sumIncomMonthly[1] * 1000).getMonth()], sumIncomMonthly[0]]);
-    mounthData = Array.from(new Set(mounthData1));
-    //console.log(mounthData)
-  });
-  //console.log(mounthData)
-  // expenseCategories.forEach(category => {
-  //   let value = amounts.filter(item => {
-  //     return category.categoryId === item.categoryId
-  //   })
-  //   data.push([category.name, -value[0].amount, -value[0].amount, currentIncoming]);
-  //   mounthData.map(item => {
-  //     item.push(-value[0].amount)
-  //   })
-  // });
-  expenseCategories.forEach((category, index) => {
-    let value = amounts.filter(item => {
-      return category.categoryId === item.categoryId
+    allIncomeAmounts.push(...eachCategoriAmountsNewObj)
+  } )
+
+  let allexpenseAmounts = []
+  expenseCategories.forEach( (expenseCategorie) => {
+    let eachCategoriAmounts = amounts.filter(item =>  item.categoryId === expenseCategorie.categoryId );
+    let eachCategoriAmountsNewObj = eachCategoriAmounts.map( item =>  {
+     return {amount: item.amount , month: new Date(item.date.seconds * 1000).toLocaleString('en-us', { month: 'long' })}
     })
-    //console.log(value);
-    let sumOfCategory = value.map(item => {
-      console.log(item.amount);
-      return item.amount
-    })
-    // let sumOfCategory1 = value.map(item => {
-    //   return [item.amount, item.date.seconds]
-    // })
-    console.log(sumOfCategory);
-    // let sumExpenseMonthly = sumOfCategory.reduce(function (previousValue, currentValue) {
-    //   return [(previousValue[0] + currentValue[0])];
-    // });
-    // console.log(sumExpenseMonthly);
-    const sum = sumOfCategory.reduce((partialSum, a) => partialSum + a, 0);
-    console.log(sum)
-    //setCurrentExpense(-sum)
-    //console.log(currentExpense);
-    data.push([category.name, -sum, mounthData[0][1]]);
-    // mounthData1.map(item => {
-    //   item.push(currentExpense)
-    //   //item.push(200)
-    // })
-    // console.log(mounthData1);
-    // mounthData1[index].push(-sum)
-    mounthData1.forEach(item => {
-      item.push(-sum)
-      //item.push(200)
-    })
-  });
-  console.log(mounthData1);
-  // const data1 = [
-  //   ['Unitility', 51, 45, 6],
-  //   ['Educational', 67, 39, 28],
-  //   ['Transport', 19, 11, 8],
-  //   ['Bank', 47, 33, 14],
-  //   ['Entertainment', 32, 20, 12],
-  //   ['Clothes', 70, 20, 50],
-  // ];
-  // const mounthData1 = [
-  //   ['March', 60, 3, 25],
-  //   ['April', 51, 25, 26],
-  //   ['May', 73, 35, 38],
-  //   ['Jun', 84, 43, 41],
-  //   ['July', 79, 36, 33],
-  //   ['August', 89, 41, 48],
-  // ];
+    allexpenseAmounts.push(...eachCategoriAmountsNewObj)
+  } )
+
+
+
+  let newData = []
+  let dataByMonth = months.forEach( month => {
+     let monthlyAmount = 0;
+     let monthlyFilteredData = allIncomeAmounts.filter( singleItem => singleItem.month === month)
+     if(monthlyFilteredData.length) {
+        monthlyFilteredData.forEach( data => {
+              monthlyAmount = monthlyAmount + data.amount
+      })
+      newData.push([month, monthlyAmount])
+     }
+  })
+
+
+  let expenseData = []
+  let expenseDataByMonth = months.forEach( month => {
+     let monthlyAmount = 0;
+     let monthlyFilteredData = allexpenseAmounts.filter( singleItem => singleItem.month === month)
+     if(monthlyFilteredData.length) {
+        monthlyFilteredData.forEach( data => {
+              monthlyAmount = monthlyAmount + data.amount
+      })
+      expenseData.push([month, monthlyAmount])
+     }
+  })
+   
+  
+  let finalData = []
+   months.forEach( (monthName) => {
+    let newPart = []
+    let elem1 = newData.find( (item) => item[0] === monthName)
+    let elem2 = expenseData.find( (item) => item[0] === monthName)
+    if(elem1 || elem2) {
+      newPart.push(monthName)
+      elem1 ? newPart.push(elem1[1]) : newPart.push(0);
+      elem2 ? newPart.push(-elem2[1]) : newPart.push(0);
+    } 
+    if(newPart.length) {
+      finalData.push(newPart)
+    }
+  })
+
   const config = {
     height: 500,
     padding: 'auto',
@@ -126,7 +90,7 @@ function Charts() {
     },
     views: [
       {
-        data: data.map((d) => ({
+        data: finalData.map((d) => ({
           type: d[0],
           value: d[1],
         })),
@@ -181,7 +145,7 @@ function Charts() {
       {
         data: new DataView()
           .source(
-            data.map((d) => ({
+            finalData.map((d) => ({
               type: d[0],
               income: d[1],
               expense: d[2],
@@ -226,7 +190,7 @@ function Charts() {
         ],
       },
       {
-        data: mounthData.map((d) => ({
+        data: finalData.map((d) => ({
           mounth: d[0],
           income: d[1],
         })),
@@ -247,12 +211,7 @@ function Charts() {
             },
           },
         },
-        meta: {
-          income: {
-            min: 200,
-            max: 3000,
-          },
-        },
+        meta: {},
         geometries: [
           {
             type: 'area',
@@ -275,10 +234,10 @@ function Charts() {
       {
         data: new DataView()
           .source(
-            mounthData.map((d) => ({
+            finalData.map((d) => ({
               mounth: d[0],
               income: d[1],
-              expense: d[3],
+              expense: d[2],
             })),
           )
           .transform({

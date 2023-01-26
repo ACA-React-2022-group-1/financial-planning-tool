@@ -12,7 +12,6 @@ import Signin from '../pages/public/signin/Signin';
 import History from '../pages/private/history/History';
 import Categories from '../pages/private/categories/Categories';
 import Charts from '../pages/private/charts/Charts';
-import ChangeCurrency from '../pages/private/change currency/ChangeCurency';
 import { useAuth } from  "../hooks/useAuth"
 
 export const Navigation = () => {
@@ -26,8 +25,7 @@ export const Navigation = () => {
             <Route path='summary' element={<Summary/>}/> 
             <Route path='history' element={<History />}/>
             <Route path='categories' element={<Categories />}/>
-            <Route path='charts' element={<Charts />}/>
-            <Route path='changeCurrency' element={<ChangeCurrency />}/>          
+            <Route path='charts' element={<Charts />}/>         
             <Route path='manual' element={<Manual/>}/>
         </Route>  
         }

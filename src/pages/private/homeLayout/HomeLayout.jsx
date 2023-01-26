@@ -47,11 +47,6 @@ const menuItems = [
       label: 'Charts',
   },
   {
-      key: 'changeCurrency',
-      icon: <TransactionOutlined />,
-      label: 'Change currency',
-  },
-  {
       key: 'manual',
       icon: <SettingOutlined />,
       label: 'Manual',

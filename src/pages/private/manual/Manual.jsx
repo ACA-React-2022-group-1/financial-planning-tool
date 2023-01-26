@@ -39,7 +39,7 @@ function Manual() {
             categories.
           </p>
         </Panel>
-        <Panel header="Dashboard" key="4">
+        <Panel header="Charts" key="4">
           <p className="manualTxt">
             This page charts gives an opportunity to get information about incoming, expenses,
             which part of incoming the user pays for each expense and how user manage income by month.

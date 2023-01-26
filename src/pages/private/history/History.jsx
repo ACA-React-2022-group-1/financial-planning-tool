@@ -66,7 +66,7 @@ function History() {
 
       <List
         pagination={{
-          defaultPageSize: 4,
+          defaultPageSize: 8,
         }}
         dataSource={newAmounts}
         renderItem={(data) => (
